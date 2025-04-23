@@ -1,0 +1,61 @@
+# Python 関連
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# 仮想環境
+myenv/
+
+
+# IDE・エディタ関連
+.vscode/
+
+# OS生成ファイル
+.DS_Store
+Thumbs.db
+
+# Django 関連
+*.log
+*.pot
+*.pyc
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+static/
+logs/
+
+# pytestなどのテスト関連
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+
+# pipenv / poetry / pip-tools 関連
+Pipfile.lock
+poetry.lock
+*.lock
+
+# dotenv
+.env
+.env.*
+
+# migrations（必要なら除外）
+**/migrations/__pycache__/
+# ただし以下のように初期マイグレーションは追跡する場合は `__init__.py` は除外しない：
+# **/migrations/!(__init__.py)
+
+# その他、用途に応じて
+*.sqlite3
