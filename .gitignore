@@ -11,7 +11,7 @@ build/
 .eggs/
 
 # 仮想環境
-myenv/
+venv/
 
 
 # IDE・エディタ関連

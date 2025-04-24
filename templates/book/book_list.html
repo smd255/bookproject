@@ -1,0 +1,8 @@
+{% comment %} object_listはListViewで指定したモデルの全データ {% endcomment %}
+{% for item in object_list %}
+    <ul>
+        <li>{{ item.title }}</li>
+        <li>{{ item.text }}</li>
+        <li>{{ item.category }}</li>
+    </ul>
+{% endfor %}
