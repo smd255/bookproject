@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, DeleteView
 from .models import Book
 
 
@@ -25,4 +25,10 @@ class CreateBookView(CreateView):
     通常のreverseではアプリ初期化段階で即時実行。アプリ初期化中なのでviewの名前が無くエラー。
     画面上でrequestが来た時に実行するためにlazyを使用。
     """
+    success_url = reverse_lazy("list-book")
+
+
+class DeleteBookView(DeleteView):
+    template_name = "book/book_confirm_delete.html"
+    model = Book
     success_url = reverse_lazy("list-book")
