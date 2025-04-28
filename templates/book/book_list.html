@@ -2,14 +2,16 @@
 {% block title %}
     書籍一覧
 {% endblock title %}
+{% block h1 %}
+    書籍一覧
+{% endblock h1 %}
 {% block content %}
     {% for item in object_list %}
-        <div class="card">
-            <h5 class="card-header">{{ item.title }}</h5>
-            <div class="card-body">
-                <p class="card-text">{{ item.text }}</p>
-                <a href="{% url 'detail-book' item.pk %}" class="btn btn-primary">詳細へ</a>
-                <h6 class="card-titel">{{ item.category }}</h6>
+        <div class="p-4 m-4 bg-light border border-success rounded">
+            <h2 class="text-success">{{ item.title }}</h2>
+            <h3>カテゴリ：{{ item.category }}</h3>
+            <div class="mt-3">
+                <a href="{% url 'detail-book' item.pk %}">詳細へ</a>
             </div>
         </div>
     {% endfor %}
