@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
@@ -12,17 +13,25 @@ from .models import Book
 # Create your views here.
 
 
+# index表示
+def index_view(request):
+    print("index view is called")
+    return render(request, "book/index.html", {"somedata": 100})
+
+
 # 本棚リスト表示
 class ListBookView(ListView):
     template_name = "book/book_list.html"
     model = Book
 
 
+# 詳細表示
 class DetailBookView(DetailView):
     template_name = "book/book_detail.html"
     model = Book
 
 
+# 新規作成用表示
 class CreateBookView(CreateView):
     template_name = "book/book_create.html"
     model = Book
@@ -34,12 +43,14 @@ class CreateBookView(CreateView):
     success_url = reverse_lazy("list-book")
 
 
+# 削除用表示
 class DeleteBookView(DeleteView):
     template_name = "book/book_confirm_delete.html"
     model = Book
     success_url = reverse_lazy("list-book")
 
 
+# 編集用表示
 class UpdateBookView(UpdateView):
     template_name = "book/book_update.html"
     model = Book
