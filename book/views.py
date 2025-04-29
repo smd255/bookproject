@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import logout
 from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
@@ -21,6 +22,12 @@ def index_view(request):
     """
     object_list = Book.objects.order_by("category")
     return render(request, "book/index.html", {"object_list": object_list})
+
+
+# ログアウト処理
+def logout_view(request):
+    logout(request)
+    return redirect("index")
 
 
 # 本棚リスト表示
