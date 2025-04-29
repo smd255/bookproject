@@ -15,8 +15,12 @@ from .models import Book
 
 # index表示
 def index_view(request):
-    print("index view is called")
-    return render(request, "book/index.html", {"somedata": 100})
+    """
+    Book.objects：Bookテーブルに格納されている全データ。
+    (Model由来の)様々なメソッドを持つ。
+    """
+    object_list = Book.objects.order_by("category")
+    return render(request, "book/index.html", {"object_list": object_list})
 
 
 # 本棚リスト表示
