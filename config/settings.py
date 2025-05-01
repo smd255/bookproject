@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "accounts.app.AccountsConfig",
+    "accounts.apps.AccountsConfig",
     "book.apps.BookConfig",
 ]
 
@@ -125,5 +125,6 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-# Login redirect url
+# Login/Logpit redirect url
 LOGIN_REDIRECT_URL = "list-book"
+LOGOUT_REDIRECT_URL = "list-book"
