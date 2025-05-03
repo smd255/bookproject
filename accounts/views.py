@@ -9,7 +9,7 @@ from .forms import SignupForm
 
 
 class SignupView(CreateView):
-    model = User
-    form_class = SignupForm
+    model = User  # DBに保存するmodel
+    form_class = SignupForm  # 入力フォームの指定
     template_name = "accounts/signup.html"
-    success_url = reverse_lazy("index")
+    success_url = reverse_lazy("index")  # 処理成功時に遷移するURL
