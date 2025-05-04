@@ -67,3 +67,12 @@ class CreateReviewView(CreateView):
     model = Review
     fields = ("book", "title", "text", "rate")
     template_name = "book/review_form.html"
+
+    # CreateView定義の関数を上書き
+    # **kwargs:キーワード引数。今回の場合が<int:book_id>が渡される
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Bookオブジェクトを"book"キー(辞書型)に登録
+        context["book"] = Book.objects.get(pk=self.kwargs["book_id"])
+        # print(context)
+        return context
