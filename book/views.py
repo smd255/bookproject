@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import (
@@ -24,19 +25,25 @@ def index_view(request):
 
 
 # 本棚リスト表示
-class ListBookView(ListView):
+# 多重継承。左側が優先。ログイン関係は優先したいから左に記述。
+class ListBookView(LoginRequiredMixin, ListView):
+    """
+    非ログイン状態ではViewを表示しない。
+    ログイン後の遷移ページはsettings.pyでLOGIN_REDIRECT_URLにて設定済み。
+    """
+
     template_name = "book/book_list.html"
     model = Book
 
 
 # 詳細表示
-class DetailBookView(DetailView):
+class DetailBookView(LoginRequiredMixin, DetailView):
     template_name = "book/book_detail.html"
     model = Book
 
 
 # 新規作成用表示
-class CreateBookView(CreateView):
+class CreateBookView(LoginRequiredMixin, CreateView):
     template_name = "book/book_create.html"
     model = Book
     fields = ("title", "text", "category", "thumbnail")
@@ -48,14 +55,14 @@ class CreateBookView(CreateView):
 
 
 # 削除用表示
-class DeleteBookView(DeleteView):
+class DeleteBookView(LoginRequiredMixin, DeleteView):
     template_name = "book/book_confirm_delete.html"
     model = Book
     success_url = reverse_lazy("list-book")
 
 
 # 編集用表示
-class UpdateBookView(UpdateView):
+class UpdateBookView(LoginRequiredMixin, UpdateView):
     template_name = "book/book_update.html"
     model = Book
     fields = ("title", "text", "category", "thumbnail")
@@ -63,7 +70,7 @@ class UpdateBookView(UpdateView):
 
 
 # レビュー作成用表示
-class CreateReviewView(CreateView):
+class CreateReviewView(LoginRequiredMixin, CreateView):
     model = Review
     fields = ("book", "title", "text", "rate")
     template_name = "book/review_form.html"
