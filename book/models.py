@@ -16,6 +16,7 @@ class Book(models.Model):
     text = models.TextField()  # 内容
     thumbnail = models.ImageField(null=True, blank=True)  # 画像表示
     category = models.CharField(max_length=100, choices=CATEGORY)  # カテゴリー
+    user = models.ForeignKey("auth.User", on_delete=models.CASCADE)
 
     # オブジェクトの文字列表現を返す特殊メソッド
     def __str__(self):

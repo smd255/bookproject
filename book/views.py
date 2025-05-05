@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views.generic import (
@@ -60,6 +61,15 @@ class DeleteBookView(LoginRequiredMixin, DeleteView):
     model = Book
     success_url = reverse_lazy("list-book")
 
+    # override
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+
+        if obj.user != self.request.user:
+            raise PermissionDenied
+
+        return obj
+
 
 # 編集用表示
 class UpdateBookView(LoginRequiredMixin, UpdateView):
@@ -68,6 +78,18 @@ class UpdateBookView(LoginRequiredMixin, UpdateView):
     fields = ("title", "text", "category", "thumbnail")
     success_url = reverse_lazy("list-book")
 
+    # override
+    def get_object(self, queryset=None):
+        # URLから指定のオブジェクトを取得
+        obj = super().get_object(queryset)
+
+        # オブジェクトのユーザーと現在のユーザーの判定
+        if obj.user != self.request.user:
+            # 403の例外
+            raise PermissionDenied
+
+        return obj
+
 
 # レビュー作成用表示
 class CreateReviewView(LoginRequiredMixin, CreateView):
@@ -75,7 +97,7 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
     fields = ("book", "title", "text", "rate")
     template_name = "book/review_form.html"
 
-    # CreateView定義の関数をオーバーライド
+    # override
     # viewのレンダリング時にコールされる
     # **kwargs:キーワード引数。今回の場合が<int:book_id>が渡される
     def get_context_data(self, **kwargs):
@@ -84,7 +106,7 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
         context["book"] = Book.objects.get(pk=self.kwargs["book_id"])
         return context
 
-    # CreateView定義の関数をオーバーライド
+    # override
     # form送信時にコールされる
     def form_valid(self, form):
         # フォームのインスタンス内のuserにデータ追加
@@ -92,6 +114,6 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
 
         return super().form_valid(form)
 
-    # CreateView定義の関数をオーバーライド
+    # override
     def get_success_url(self):
         return reverse("detail-book", kwargs={"pk": self.object.book.id})
