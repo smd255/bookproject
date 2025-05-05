@@ -1,3 +1,4 @@
+from django.db.models import Avg
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
@@ -21,8 +22,19 @@ def index_view(request):
     Book.objects：Bookテーブルに格納されている全データ。
     (Model由来の)様々なメソッドを持つ。
     """
-    object_list = Book.objects.order_by("category")
-    return render(request, "book/index.html", {"object_list": object_list})
+    # idで整列。"-"付与により降順。
+    object_list = Book.objects.order_by("-id")
+    # ランキング順。降順
+    # アンダースコア2つで外部キーを参照
+    ranking_list = Book.objects.annotate(avg_rating=Avg("review__rate")).order_by(
+        "-avg_rating"
+    )
+
+    return render(
+        request,
+        "book/index.html",
+        {"object_list": object_list, "ranking_list": ranking_list},
+    )
 
 
 # 本棚リスト表示
@@ -53,6 +65,12 @@ class CreateBookView(LoginRequiredMixin, CreateView):
     画面上でrequestが来た時に実行するためにlazyを使用。
     """
     success_url = reverse_lazy("list-book")
+
+    # override
+    # ユーザーIDを渡す
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 # 削除用表示
