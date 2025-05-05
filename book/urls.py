@@ -12,6 +12,6 @@ urlpatterns = [
     path(
         "book/<int:book_id>/review/",
         views.CreateReviewView.as_view(),
-        name="update-book",
+        name="review",
     ),
 ]

@@ -128,3 +128,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Login/Logpit redirect url
 LOGIN_REDIRECT_URL = "list-book"
 LOGOUT_REDIRECT_URL = "list-book"
+
+# Media URL
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
