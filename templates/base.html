@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,6 +15,10 @@
               rel="stylesheet"
               integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
               crossorigin="anonymous">
+        {% comment %} 追加のCSS読み込み用 {% endcomment %}
+        <link rel="stylesheet"
+              type="text/css"
+              href="{% static 'book/css/style.css' %}">
     </head>
     <body>
         <nav class="navbar navbar-dark bg-success sticky-top">
