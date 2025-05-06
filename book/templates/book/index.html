@@ -40,7 +40,7 @@
                              height="100"
                              width="100"
                              alt="{{ ranking_book.title }} thumbnail" />
-                        <h4>評価：{{ ranking_book.avg_rating }}点</h4>
+                        <h4>評価：{{ ranking_book.avg_rating | floatformat }}点</h4>
                         <a href="{% url 'detail-book' ranking_book.id %}">詳細を見る</a>
                     {% else %}
                         <p>画像がありません</p>
