@@ -58,8 +58,9 @@ class ListBookView(LoginRequiredMixin, ListView):
     ログイン後の遷移ページはsettings.pyでLOGIN_REDIRECT_URLにて設定済み。
     """
 
-    template_name = "book/book_list.html"
-    model = Book
+    template_name = "book/book_list.html"  # テンプレート設定
+    model = Book  # 記憶モデル設定
+    paginate_by = ITEM_PER_RAGE  # ページネーション設定
 
 
 # 詳細表示
