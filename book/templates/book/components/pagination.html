@@ -1,0 +1,21 @@
+{% comment %} ページネーションで区切るデータの数よりモデルに格納されているデータの数の方が少ない {% endcomment %}
+{% if page_obj.has_other_pages %}
+    <ul class="list-unstyled m-0 d-flex justify-content-between">
+        {% comment %} 前のページの有無 {% endcomment %}
+        {% if page_obj.has_previous %}
+            <li>
+                <a href="?page={{ page_obj.previous_page_number }}">&lt;&lt;前へ</a>
+            </li>
+        {% else %}
+            <li class="text-muted">&lt;&lt;前へ</li>
+        {% endif %}
+        {% comment %} 次のページの有無 {% endcomment %}
+        {% if page_obj.has_next %}
+            <li>
+                <a href="?page={{ page_obj.next_page_number }}">次へ&gt;&gt;</a>
+            </li>
+        {% else %}
+            <li class="text-muted">次へ&gt;&gt;</li>
+        {% endif %}
+    </ul>
+{% endif %}

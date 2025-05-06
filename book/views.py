@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.db.models import Avg
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
@@ -10,6 +11,8 @@ from django.views.generic import (
     DeleteView,
     UpdateView,
 )
+
+from .consts import ITEM_PER_RAGE
 from .models import Book, Review
 
 
@@ -24,16 +27,26 @@ def index_view(request):
     """
     # idで整列。"-"付与により降順。
     object_list = Book.objects.order_by("-id")
+
     # ランキング順。降順
     # アンダースコア2つで外部キーを参照
     ranking_list = Book.objects.annotate(avg_rating=Avg("review__rate")).order_by(
         "-avg_rating"
     )
 
+    # ページネーション
+    paginator = Paginator(ranking_list, ITEM_PER_RAGE)  # 必要な数に分割してobj取得
+    page_number = request.GET.get("page", 1)  # URLからページ番号の取得。デフォルトは1
+    page_obj = paginator.page(page_number)  #
+
     return render(
         request,
         "book/index.html",
-        {"object_list": object_list, "ranking_list": ranking_list},
+        {
+            "object_list": object_list,
+            "ranking_list": ranking_list,
+            "page_obj": page_obj,
+        },
     )
 
 

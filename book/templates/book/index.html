@@ -30,8 +30,8 @@
         </div>
         {% comment %} 評価順の表示 {% endcomment %}
         <div class="col-3">
-            <h2>評価順</h2>
-            {% for ranking_book in ranking_list %}
+            <h2>評価順TOP2</h2>
+            {% for ranking_book in page_obj %}
                 <div class="p-4 m-4 bg-light border border-success rounded">
                     <h3 class="text-success">{{ ranking_book.title }}</h3>
                     {% if ranking_book.thumbnail %}
@@ -47,6 +47,7 @@
                     {% endif %}
                 </div>
             {% endfor %}
+            {% include "book/components/pagination.html" %}
         </div>
     </div>
 {% endblock content %}
