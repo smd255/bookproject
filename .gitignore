@@ -10,6 +10,10 @@ dist/
 build/
 .eggs/
 
+# エクセル系の余分なファイル
+~$*
+*.xlsx:Zone.Identifier
+
 # 仮想環境
 venv/
 
@@ -59,3 +63,4 @@ poetry.lock
 
 # その他、用途に応じて
 *.sqlite3
+
