@@ -131,7 +131,6 @@ class CreateReviewView(LoginRequiredMixin, CreateView):
 
     # override
     # viewのレンダリング時にコールされる
-    # **kwargs:キーワード引数。今回の場合が<int:book_id>が渡される
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Bookオブジェクトを"book"キー(辞書型)に登録
