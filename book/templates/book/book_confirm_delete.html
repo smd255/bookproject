@@ -3,8 +3,10 @@
     書籍削除
 {% endblock title %}
 {% block content %}
+    <h2>「{{ object.title }}」を本当に削除してもよろしいですか？</h2>
     <form method="post">
         {% csrf_token %}
-        <button type="submit">{{ object.title }}</button>
+        <button type="submit" class="btn btn-success m-2">削除する</button>
+        <a href="{% url 'list-book' %}">キャンセル</a>
     </form>
 {% endblock content %}
