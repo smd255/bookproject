@@ -6,7 +6,8 @@ from .consts import MAX_RATE
 # 分類, 選択肢
 CATEGORY = (("business", "ビジネス"), ("life", "生活"), ("other", "その他"))
 
-# ??
+# 評価値
+# 例(1,"1"), (2,"2")...
 RATE_CHOICES = [(x, str(x)) for x in range(0, MAX_RATE + 1)]
 
 
