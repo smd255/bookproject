@@ -127,8 +127,7 @@ class UpdateBookView(LoginRequiredMixin, UpdateView):
 class CreateReviewView(LoginRequiredMixin, CreateView):
     model = Review
     fields = ("book", "title", "text", "rate")
-    template_name = "book/review_form.html"
-
+    template_name = "book/review_form.ht
     # override
     # viewのレンダリング時にコールされる
     def get_context_data(self, **kwargs):
