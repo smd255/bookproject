@@ -15,7 +15,7 @@ build/
 *.xlsx:Zone.Identifier
 
 # 仮想環境
-venv/
+.venv/
 
 
 # IDE・エディタ関連
